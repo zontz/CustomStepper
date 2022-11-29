@@ -25,10 +25,10 @@ final class MainVC: UIViewController {
     }
     
     private func setupStepper() {
-        stepperView.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        stepperView.addTarget(self, action: #selector(stepperAction), for: .touchUpInside)
     }
     
-    @objc private func buttonAction(sender: CustomStepper) {
+    @objc private func stepperAction(sender: CustomStepper) {
         print(1)
     }
 }
