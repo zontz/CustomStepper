@@ -9,13 +9,13 @@ final class MainVC: UIViewController {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
+        setupStepper()
     }
     
     //MARK: - Private
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(stepperView)
-        stepperView.delegate = self
     }
     
     private func setupConstraints() {
@@ -23,13 +23,12 @@ final class MainVC: UIViewController {
             make.centerX.centerY.equalToSuperview()
         }
     }
-}
-
-//MARK: - CustomStepperOutput
-extension MainVC: CustomStepperOutput {
-    func customStepper(_ didChangeValue: Int) {
-        print(didChangeValue)
+    
+    private func setupStepper() {
+        stepperView.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+    }
+    
+    @objc private func buttonAction(sender: CustomStepper) {
+        print(1)
     }
 }
-
-

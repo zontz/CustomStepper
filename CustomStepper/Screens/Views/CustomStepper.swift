@@ -1,28 +1,12 @@
 import UIKit
 import SnapKit
 
-protocol CustomStepperOutput: AnyObject {
-    func customStepper(_ didChangeValue: Int)
-}
-
-protocol CustomStepperInput: AnyObject {
-    func update(_ value:Int)
-}
-
-final class CustomStepper: UIView {
+final class CustomStepper: UIControl {
     
-    private enum ButtonState: Int, CaseIterable {
-        case decrease = 0
-        case increase
-    }
-    
-    weak var delegate: CustomStepperOutput?
-
-    private lazy var currentValue = 1
+    var currentValue = 1
     
     private lazy var decreaseButton: UIButton = {
        let button = UIButton()
-        button.tag = ButtonState.decrease.rawValue
         button.setTitleColor(.black, for: .normal)
         button.setTitle("-", for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
@@ -30,16 +14,15 @@ final class CustomStepper: UIView {
     }()
     
     private lazy var currentStepValueLabel: UILabel = {
-        let label = UILabel()
+        var label = UILabel()
         label.textColor = .black
         label.text = "\(currentValue)"
-        label.font = .systemFont(ofSize: 15)
+        label.font = UIFont.monospacedDigitSystemFont(ofSize: 15, weight: UIFont.Weight.regular)
         return label
     }()
     
     private lazy var increaseButton: UIButton = {
         let button = UIButton()
-        button.tag = ButtonState.increase.rawValue
         button.setTitle("+", for: .normal)
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         button.setTitleColor(.black, for: .normal)
@@ -83,24 +66,16 @@ final class CustomStepper: UIView {
     
     //MARK: - Actions
     @objc private func buttonAction(_ sender: UIButton) {
-        let buttonState = ButtonState(rawValue: sender.tag)
-        
-        switch buttonState {
-        case .decrease:
+        switch sender {
+        case decreaseButton:
             currentValue = currentValue > 1 ? currentValue - 1 : currentValue
-        case .increase:
+        case increaseButton:
             currentValue += 1
         default:
-            return
+            break
         }
         currentStepValueLabel.text = "\(currentValue)"
-        delegate?.customStepper(currentValue)
+        sendActions(for: .touchUpInside)
     }
 }
 
-//MARK: - CustomStepperInput
-extension CustomStepper: CustomStepperInput {
-    func update(_ value: Int) {
-        currentValue = value
-    }
-}
