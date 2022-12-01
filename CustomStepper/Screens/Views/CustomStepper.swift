@@ -3,6 +3,7 @@ import SnapKit
 
 final class CustomStepper: UIControl {
     
+    /// Счетчик степпер который мы можем считывать и записывать
     var currentValue = 1
     
     private lazy var decreaseButton: UIButton = {
@@ -40,8 +41,7 @@ final class CustomStepper: UIControl {
     //MARK: - Life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = .systemGray6
-        layer.cornerRadius = 20
+
         setupViews()
         setupContraints()
     }
@@ -52,6 +52,8 @@ final class CustomStepper: UIControl {
     
     //MARK: - Private
     private func setupViews() {
+        backgroundColor = .systemGray6
+        layer.cornerRadius = 20
         addSubview(horizontalStackView)
         horizontalStackView.addArrangedSubview(decreaseButton)
         horizontalStackView.addArrangedSubview(currentStepValueLabel)
@@ -75,7 +77,7 @@ final class CustomStepper: UIControl {
             break
         }
         currentStepValueLabel.text = "\(currentValue)"
-        sendActions(for: .touchUpInside)
+        sendActions(for: .valueChanged)
     }
 }
 
