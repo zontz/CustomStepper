@@ -75,7 +75,7 @@ final class CustomStepper: UIControl {
     @objc private func buttonAction(_ sender: UIButton) {
         switch sender {
         case decreaseButton:
-            currentValue = currentValue - 1
+            currentValue -= 1
         case increaseButton:
             currentValue += 1
         default:
