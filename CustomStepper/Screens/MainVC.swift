@@ -1,5 +1,5 @@
 import UIKit
-
+import SnapKit
 final class MainVC: UIViewController {
 
     private lazy var stepperView = CustomStepper()
