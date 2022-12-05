@@ -1,5 +1,5 @@
 import UIKit
-import SnapKit
+
 final class MainVC: UIViewController {
 
     private lazy var stepperView = CustomStepper()
@@ -7,6 +7,7 @@ final class MainVC: UIViewController {
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupViews()
         setupConstraints()
         setupStepper()
@@ -14,6 +15,7 @@ final class MainVC: UIViewController {
     
     //MARK: - Private
     private func setupViews() {
+        stepperView.currentValue = -1
         view.backgroundColor = .white
         view.addSubview(stepperView)
     }
